@@ -16,11 +16,11 @@ public class ListNode {
         ListNode o2 = new ListNode(2,o3);
         ListNode o1 = new ListNode(1,o2);
         System.out.println(o1);
-        ListNode n1 = reverseList(o1);
+        ListNode n1 = reverseList5(o1);
         System.out.println(n1);
     }
 
-    public static ListNode reverseList(ListNode o1){
+    public static ListNode reverseList1(ListNode o1){
         ListNode n1 = null;
         ListNode p = o1;
         while (p != null){
@@ -28,6 +28,97 @@ public class ListNode {
             p = p.next;
         }
         return  n1;
+    }
+
+    public static ListNode reverseList2(ListNode head){
+        ListNode n1 = null;
+        ListNode p = head;
+        while (p != null){
+            ListNode temp = p.next;
+            // n1 is head
+            p.next = n1;
+
+            // reassign head to the newly add number (node list will reverse)
+            n1 = p;
+            p = temp;
+
+        }
+
+        return n1;
+    }
+
+    public static ListNode reverseList3(ListNode head){
+        List list1 = new List(head);
+        List list2 = new List(null);
+
+        while (true){
+            ListNode first = list1.removeFirst();
+            if(first == null) break;
+            list2.addFirst(first);
+        }
+        return list2.head;
+    }
+
+    static class List{
+        ListNode head;
+
+        public List(ListNode head){
+            this.head = head;
+        }
+
+        public void addFirst(ListNode first){
+            first.next = head;
+            head = first;
+        }
+
+        public ListNode removeFirst(){
+            ListNode first = head;
+            if(first != null){
+                head = first.next;
+            }
+            return first;
+        }
+
+    }
+
+    public static ListNode reverseList4(ListNode p){
+        if(p == null || p.next == null){
+            return p;
+        }
+        ListNode last = reverseList4(p.next);
+        p.next.next = p;
+        p.next = null;
+        return last;
+    }
+
+    public static ListNode reverseList5(ListNode o1){
+        if(o1 == null || o1.next ==null){
+            return o1;
+        }
+        ListNode o2 = o1.next;
+        ListNode n1 = o1;
+        while (o2 != null){
+
+            o1.next = o2.next;
+            o2.next = n1;
+            n1 = o2;
+            o2 = o1.next;
+
+        }
+        return n1;
+    }
+
+    public static ListNode reverseList(ListNode o1 ){
+        if(o1 == null || o1.next == null) return o1;
+        ListNode n1 = null;
+        while (o1 != null){
+            ListNode o2 = o1.next;
+            o1.next = n1;
+            n1 = o1;
+            o1 = o2;
+        }
+
+        return n1;
     }
 
     @Override
