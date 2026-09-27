@@ -1,12 +1,25 @@
 package linkedlist;
 
 public class ListNode {
-    public int val;
+    public Integer val;
     public ListNode next;
 
     public ListNode(int val,ListNode next){
         this.val = val;
         this.next = next;
+    }
+
+    public static ListNode of(int... elements){
+        if(elements.length == 0){
+            return null;
+        }
+        ListNode head = new ListNode(elements[0], null);
+        ListNode p = head;
+        for(int i = 1; i < elements.length; i++){
+            p.next = new ListNode(elements[i], null);
+            p = p.next;
+        }
+        return head;
     }
 
     public static void main(String[] args) {
