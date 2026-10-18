@@ -4,7 +4,7 @@ public class ListNode {
     public Integer val;
     public ListNode next;
 
-    public ListNode(int val,ListNode next){
+    public ListNode(Integer val,ListNode next){
         this.val = val;
         this.next = next;
     }
