@@ -26,46 +26,81 @@ public class ArrayDeque1<E> implements Deque<E>, Iterable<E> {
 
     @Override
     public boolean offerFirst(E e) {
-        return false;
+        if(isFull()){return false;}
+        head = dec(head,array.length);
+        array[head] = e;
+        return true;
     }
 
     @Override
     public boolean offerLast(E e) {
-        return false;
+        if(isFull()){return false;}
+        array[tail] = e;
+        tail = inc(tail,array.length);
+        return true;
     }
 
     @Override
     public E pollFirst() {
-        return null;
+        if(isEmpty()){return null;}
+        E e = array[head] ;
+        array[head] = null;
+        head = inc(head,array.length);
+        return e;
     }
 
     @Override
     public E pollLast() {
-        return null;
+        if(isEmpty()){return null;}
+        tail = inc(tail,array.length);
+        E e = array[tail] ;
+        array[tail] = null;
+        return array[tail] ;
     }
 
     @Override
     public E peekFirst() {
-        return null;
+        if(isEmpty()){return null;}
+        return array[head] ;
     }
 
     @Override
     public E peekLast() {
-        return null;
+        if(isEmpty()){return null;}
+        return array[dec(tail,array.length)] ;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return head == tail;
     }
 
     @Override
     public boolean isFull() {
+        if(tail > head) {
+            return tail - head == array.length - 1;
+        } else if (tail< head) {
+            return head-tail ==1;
+            
+        }
         return false;
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            int p = head;
+            @Override
+            public boolean hasNext() {
+                return p != tail;
+            }
+
+            @Override
+            public E next() {
+                E e = array[p];
+                p = inc(p,array.length);
+                return null;
+            }
+        };
     }
 }
